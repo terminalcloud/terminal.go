@@ -211,7 +211,7 @@ type Output_Cname_Records struct {
 }
 
 
-type Output_Terminal_Iddle_Settings struct {
+type Output_Terminal_Idle_Settings struct {
 	Success bool `json:"success"`
 	Settings struct {
 		Action string `json:"action"`
