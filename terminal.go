@@ -58,13 +58,15 @@ func Set_Credentials(file bool, filename string, u_token string, a_token string)
 	}
 }
 
-func Load_Credentials() string {
-	_, err := os.Create("/caca")
+func Load_Credentials(filename string) (string, string) {
+	file, err := ioutil.ReadFile(filename)
 	if err != nil {panic(err)}
-	return "returned"
-
-} // TODO: Make this one.
-
+	var creds Input_Output_creds
+	json.Unmarshal(file, &creds)
+	utoken = creds.Utoken
+	atoken = creds.Atoken
+	return utoken,atoken
+}
 
 //****** BROWSE SNAPSHOTS & USERS ******//
 
@@ -435,7 +437,7 @@ func Edit_Terminal_Access(container_key string, is_public_list []int, access_rul
 	return res, success
 }
 
-func Edit_Terminal_Access_Raw(container_key string, is_public_list []int, access_rules []string) (*Output_Status, bool) {
+func Edit_Terminal_Access_Raw(container_key string, is_public_list []int, access_rules []string) (string, bool) {
 	call := "edit_terminal_access"
 	input := &Input_Edit_TerminalAccess{ContainerKey: container_key, IsPublicList: is_public_list, AccessRules:access_rules}
 	data, _ := json.Marshal(input)
