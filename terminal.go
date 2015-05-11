@@ -23,8 +23,6 @@ var atoken string
 
 func Make_Request(call string, kind string, data []byte) (string, int) {
 	url := baseurl + call
-	fmt.Println(string(call))
-	fmt.Println(string(data))
 	data_buffer := bytes.NewBuffer(data)
 	req, err := http.NewRequest(kind, url, data_buffer)
 	if err != nil {panic(err)}
@@ -35,7 +33,6 @@ func Make_Request(call string, kind string, data []byte) (string, int) {
 	response, err := client.Do(req)
 	if err != nil {panic(err)}
 	defer response.Body.Close()
-	fmt.Println(response.StatusCode)
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {panic(err)}
 	return string(body), response.StatusCode
@@ -44,28 +41,24 @@ func Make_Request(call string, kind string, data []byte) (string, int) {
 
 //****** CREDENTIAL MANAGEMENT ******//
 
-func Set_Credentials(file bool, filename string, u_token string, a_token string) {
-	utoken = u_token
-	atoken = a_token
-	if file == true {
-		input := &Input_Output_creds{Utoken: u_token, Atoken: a_token}
-		data, _ := json.Marshal(input)
-		f, err := os.Create(filename)
-		if err != nil {panic(err)}
-		_ , err = f.WriteString(string(data))
-		if err != nil {panic(err)}
-		f.Close()
-	}
-}
-
-func Load_Credentials(filename string) (string, string) {
+func Load_Credentials(filename string) (string, string, error) {
 	file, err := ioutil.ReadFile(filename)
-	if err != nil {panic(err)}
 	var creds Input_Output_creds
 	json.Unmarshal(file, &creds)
 	utoken = creds.Utoken
 	atoken = creds.Atoken
-	return utoken,atoken
+	return utoken,atoken,err
+}
+
+func Write_Credentials(filename string, u_token string, a_token string) error {
+	utoken = u_token
+	atoken = a_token
+	input := &Input_Output_creds{Utoken: u_token, Atoken: a_token}
+	data, _ := json.Marshal(input)
+	f, err := os.Create(filename)
+	_ , err = f.WriteString(string(data))
+	defer f.Close()
+	return err
 }
 
 //****** BROWSE SNAPSHOTS & USERS ******//
