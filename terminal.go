@@ -35,6 +35,7 @@ func Make_Request(call string, kind string, data []byte) (string, int) {
 	defer response.Body.Close()
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {panic(err)}
+//	fmt.Println(response.StatusCode)
 	return string(body), response.StatusCode
 }
 
@@ -808,6 +809,15 @@ func Request_Progress(request_id string) (*Output_Request_Progress, bool) {
 	json.Unmarshal([]byte(string(output)), &res)
 	return res, success
 }
+
+
+func Request_Progress_Snapshot(request_id string) (*Output_Snapshot_Progress_Results, bool) {
+	output, success := Request_Progress_Raw(request_id)
+	res := &Output_Snapshot_Progress_Results{}
+	json.Unmarshal([]byte(string(output)), &res)
+	return res, success
+}
+
 
 func Request_Progress_Raw(request_id string) (string, bool) {
 	call := "request_progress"

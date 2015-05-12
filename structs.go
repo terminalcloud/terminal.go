@@ -343,6 +343,43 @@ type Output_Request_Progress struct {
 }
 
 
+
+type Output_Snapshot_Progress_Results struct {
+	Result string `json:"result"`
+	Operation string `json:"operation"`
+	State string `json:"state"`
+	Candidate struct {
+		Title string `json:"title"`
+		Body string `json:"body"`
+		Readme string `json:"readme"`
+		Tags string `json:"tags"`
+		Image struct {
+			Files []string `json:"files"`
+			Cdnuri string `json:"cdnUri"`
+		} `json:"image"`
+		Diskspace int `json:"diskspace"`
+		RAM int `json:"ram"`
+		Public bool `json:"public"`
+		Featured bool `json:"featured"`
+		Terminal struct {
+			CPU string `json:"cpu"`
+			RAM string `json:"ram"`
+			Diskspace string `json:"diskspace"`
+			Name string `json:"name"`
+			SnapshotID string `json:"snapshot_id"`
+			Temporary string `json:"temporary"`
+			CustomData string `json:"custom_data"`
+			Status string `json:"status"`
+			AllowSpot string `json:"allow_spot"`
+			ContainerKey string `json:"container_key"`
+			Subdomain string `json:"subdomain"`
+			ContainerIP string `json:"container_ip"`
+			CreationTime string `json:"creation_time"`
+		} `json:"terminal"`
+	} `json:"candidate"`
+	Status string `json:"status"`
+}
+
 type Output_Who_Am_I struct {
 	User struct {
 		Name string `json:"name"`
@@ -449,6 +486,6 @@ type Input_gift struct {
 // USER DATA INPUT STRUCTS
 
 type UInput_Links struct {
-	Port string
-	Source string
+	Port string	`json:"port"`
+	Source string `json:"source"`
 }
