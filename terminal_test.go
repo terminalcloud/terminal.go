@@ -171,13 +171,13 @@ func Test_Terminal_Access_and_Linking(t * testing.T) {
 	time.Sleep(2 * time.Second)
 	prog, success_prog = Request_Progress(req_id)
 	ckey := prog.Result.ContainerKey
-	///links := []UInput_Links{UInput_Links{"8000", "terminal719"}}
-	//res_raw, success := Add_Terminal_Links_Raw(ckey, links)
-	//if success != true {t.Error("--- FAIL: Add_Terminal_Links", res_raw)} else {fmt.Println("--- PASS: Add_Terminal_Links")}
-	//time.Sleep(2 * time.Second)
-	//res_raw, success = Remove_Terminal_Links_Raw(ckey, links)
-	//if success != true {t.Error("--- FAIL: Remove_Terminal_Links", res_raw)} else {fmt.Println("--- PASS: Remove_Terminal_Links")}
-	res_raw, success := List_Terminal_Access_Raw(ckey)
+	links := []UInput_Links{UInput_Links{"8000", "terminal719"}}
+	res_raw, success := Add_Terminal_Links_Raw(ckey, links)
+	if success != true {t.Error("--- FAIL: Add_Terminal_Links", res_raw)} else {fmt.Println("--- PASS: Add_Terminal_Links")}
+	time.Sleep(2 * time.Second)
+	res_raw, success = Remove_Terminal_Links_Raw(ckey, links)
+	if success != true {t.Error("--- FAIL: Remove_Terminal_Links", res_raw)} else {fmt.Println("--- PASS: Remove_Terminal_Links")}
+	res_raw, success = List_Terminal_Access_Raw(ckey)
 	if success != true {t.Error("--- FAIL: List_Terminal_Access", res_raw)} else {fmt.Println("--- PASS: List_Terminal_Access")}
 	Delete_Terminal_Raw(ckey)
 }

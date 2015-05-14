@@ -376,7 +376,7 @@ func Add_Terminal_Links(container_key string, links []UInput_Links) (*Output_Sta
 func Add_Terminal_Links_Raw(container_key string, links []UInput_Links) (string, bool) {
 	call:= "add_terminal_links"
 	slinks, _ := json.Marshal(links)
-	input:= fmt.Sprintf("{{\"container_id\":\"%s\"}, \"links\": %s}", container_key, slinks)
+	input:= fmt.Sprintf("{\"container_key\":\"%s\", \"links\": %s}", container_key, slinks)
 	data := []byte(input)
 	output,  status_code := Make_Request(call, "POST", data)
 	success := false
@@ -396,7 +396,7 @@ func Remove_Terminal_Links(container_key string, links []UInput_Links) (*Output_
 func Remove_Terminal_Links_Raw(container_key string, links []UInput_Links) (string, bool) {
 	call := "remove_terminal_links"
 	slinks, _ := json.Marshal(links)
-	input := fmt.Sprintf("{{\"container_id\":\"%s\"}, \"links\": %s}", container_key, slinks)
+	input := fmt.Sprintf("{\"container_key\":\"%s\", \"links\": %s}", container_key, slinks)
 	data := []byte(input)
 	output,  status_code := Make_Request(call, "POST", data)
 	success := false
