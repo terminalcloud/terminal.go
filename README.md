@@ -6,7 +6,7 @@
 
 ## What is this?
 
-Terminal.go or 'terminalgo' is a Golang package to help you to interact with the Terminal.com API, directly from your GO application.
+Terminal.go or 'terminalgo' is a [Golang](https://golang.org/) package to help you to interact with the Terminal.com API, directly from your GO application.
 
 ## Installation:
 Your can install this package by downloading and building the source code from this repository.
@@ -33,4 +33,4 @@ Import the package, by default located at "github.com/terminalcloud/terminal.go/
 
 ---
 
-#### The logo shown on this page is based on the Renee French work, originally licensed under the Creative Commons 3.0 Attributions license.
+The logo shown on this page is based on the [Renee French work](https://github.com/golang-samples/gopher-vector), originally licensed under the Creative Commons 3.0 Attributions license.
