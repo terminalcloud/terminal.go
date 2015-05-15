@@ -17,7 +17,7 @@ var publicKey string = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbM1JpfSiRtFwNuKVy
 var publicKey_fingerprint string = "f8:cb:db:e1:ab:16:97:eb:57:29:15:82:e6:4e:35:3b"
 
 func Test_Load_Credentials(t *testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	if err != nil {t.Error(err)}
 }
 
@@ -27,33 +27,33 @@ func Test_Write_Credentials(t *testing.T) {
 }
 
 func Test_Who_Am_I(t *testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Who_Am_I_Raw()
 	if success != true {t.Error(res)}
 }
 
 
 func Test_Get_Snapshot(t *testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Get_Snapshot_Raw(snapshot_id)
 	if success != true {t.Error(res)}
 }
 
 func Test_Get_Profile(t *testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Get_Profile_Raw(username)
 	if success != true {t.Error(res)}
 }
 
 func Test_List_Terminals(t *testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := List_Terminals_Raw()
 	if success != true {t.Error(res)}
 }
 
 
 func Test_Public_Snapshots_Listing(t *testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res_raw, success := List_Public_Snapshots_Raw(username,"ubuntu",true,"",0,100,"popularity")
 	if success != true {t.Error("--- FAIL: List_Public_Snapshots", res_raw)} else {fmt.Println("--- PASS: List_Public_Snapshots")}
 	res_raw, success = Count_Public_Snapshots_Raw(username, "ubuntu", true, "")
@@ -64,7 +64,7 @@ func Test_Public_Snapshots_Listing(t *testing.T) {
 // Terminal Handling Tests
 
 func Test_General_Terminal_Handling(t *testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "")
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	fmt.Println("--- PASS: Start_Snapshot")
@@ -119,7 +119,7 @@ func Test_Count_Snapshots(t * testing.T){
 }
 
 func Test_Snapshot_Handling(t * testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Start_Snapshot(snapshot_id, "micro", true, test_name, true, "")
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	req_id := res.RequestID
@@ -160,7 +160,7 @@ func Test_Snapshot_Handling(t * testing.T) {
 }
 
 func Test_Terminal_Access_and_Linking(t * testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "")
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	req_id := res.RequestID
@@ -188,7 +188,7 @@ func Test_Terminal_Access_and_Linking(t * testing.T) {
 }
 
 func Test_Domain_Management(t * testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res_raw, success := Get_Cname_Records_Raw()
 	if success != true {t.Error("--- FAIL: Get_Cname_Records", res_raw)} else {fmt.Println("--- PASS: Get_Cname_Records")}
 	res_raw, success = Add_Domain_To_Pool_Raw(testdomain)
@@ -220,7 +220,7 @@ func Test_Domain_Management(t * testing.T) {
 
 
 func Test_Terminal_Idle_Settings_Management(t * testing.T){
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "")
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	req_id := res.RequestID
@@ -244,7 +244,7 @@ func Test_Terminal_Idle_Settings_Management(t * testing.T){
 }
 
 func Test_Usage_And_Credits_Management(t * testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res_raw, success := Instance_Types_Raw()
 	if success != true {t.Error("--- FAIL: Instance_Types", res_raw)} else {fmt.Println("--- PASS: Instance_Types")}
 	res_raw, success = Instance_Price_Raw("micro")
@@ -260,7 +260,7 @@ func Test_Usage_And_Credits_Management(t * testing.T) {
 }
 
 func Test_Ssh_Keys_Management(t * testing.T) {
-	utoken, atoken, err = Load_Credentials(creds_file)
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res_raw, success := Add_Authorized_Key_To_Ssh_Proxy_Raw("golang_test", publicKey)
 	if success != true {t.Error("--- FAIL: Add_Authorized_Key_To_Ssh_Proxy", res_raw)} else {fmt.Println("--- PASS: Add_Authorized_Key_To_Ssh_Proxy")}
 	res_raw, success = Get_Authorized_Key_From_Ssh_Proxy_Raw()
