@@ -27,28 +27,33 @@ func Test_Write_Credentials(t *testing.T) {
 }
 
 func Test_Who_Am_I(t *testing.T) {
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Who_Am_I_Raw()
 	if success != true {t.Error(res)}
 }
 
 
 func Test_Get_Snapshot(t *testing.T) {
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Get_Snapshot_Raw(snapshot_id)
 	if success != true {t.Error(res)}
 }
 
 func Test_Get_Profile(t *testing.T) {
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := Get_Profile_Raw(username)
 	if success != true {t.Error(res)}
 }
 
 func Test_List_Terminals(t *testing.T) {
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res, success := List_Terminals_Raw()
 	if success != true {t.Error(res)}
 }
 
 
 func Test_Public_Snapshots_Listing(t *testing.T) {
+	utoken, atoken, err = Load_Credentials("creds.json")
 	res_raw, success := List_Public_Snapshots_Raw(username,"ubuntu",true,"",0,100,"popularity")
 	if success != true {t.Error("--- FAIL: List_Public_Snapshots", res_raw)} else {fmt.Println("--- PASS: List_Public_Snapshots")}
 	res_raw, success = Count_Public_Snapshots_Raw(username, "ubuntu", true, "")
