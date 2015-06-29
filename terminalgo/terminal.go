@@ -174,16 +174,16 @@ func Get_Terminal_Raw(container_key string, subdomain string) (string, bool) {
 }
 
 
-func Start_Snapshot(snapshot_id string, instance_type string, temporary bool, name string, autopause bool, startup_script string) (*Output_RequestID, bool) {
-	output, success  := Start_Snapshot_Raw(snapshot_id, instance_type, temporary, name, autopause, startup_script)
+func Start_Snapshot(snapshot_id string, instance_type string, temporary bool, name string, autopause bool, startup_script string, keep_ram bool) (*Output_RequestID, bool) {
+	output, success  := Start_Snapshot_Raw(snapshot_id, instance_type, temporary, name, autopause, startup_script, keep_ram)
 	res := &Output_RequestID{}
 	json.Unmarshal([]byte(string(output)), &res)
 	return res, success
 }
 
-func Start_Snapshot_Raw(snapshot_id string, instance_type string, temporary bool, name string, autopause bool, startup_script string) (string, bool) {
+func Start_Snapshot_Raw(snapshot_id string, instance_type string, temporary bool, name string, autopause bool, startup_script string, keep_ram bool) (string, bool) {
 	call := "start_snapshot"
-	input := &Input_Start_Snapshot{SnapshotID: snapshot_id, InstanceType: instance_type, Temporary: temporary, Name: name, Autopause: autopause, StartupScript: startup_script}
+	input := &Input_Start_Snapshot{SnapshotID: snapshot_id, InstanceType: instance_type, Temporary: temporary, Name: name, Autopause: autopause, StartupScript: startup_script, KeepRam:keep_ram}
 	data, _ := json.Marshal(input)
 	output,  status_code := Make_Request(call, "POST", data)
 	success := false
@@ -346,16 +346,16 @@ func Edit_Snapshot_Raw(snapshot_id string, body string, title string, readme str
 	return res, success
 }
 
-func Snapshot_Terminal(container_key string, body string, title string, readme string, tags string, public bool) (*Output_Req_Success, bool) {
-	output, success  := Snapshot_Terminal_Raw(container_key, body, title, readme, tags, public)
+func Snapshot_Terminal(container_key string, body string, title string, readme string, tags string, public bool, keep_ram bool) (*Output_Req_Success, bool) {
+	output, success  := Snapshot_Terminal_Raw(container_key, body, title, readme, tags, public, keep_ram)
 	res := &Output_Req_Success{}
 	json.Unmarshal([]byte(string(output)), &res)
 	return res, success
 }
 
-func Snapshot_Terminal_Raw(container_key string, body string, title string, readme string, tags string, public bool) (string, bool) {
+func Snapshot_Terminal_Raw(container_key string, body string, title string, readme string, tags string, public bool, keep_ram bool) (string, bool) {
 	call := "snapshot_terminal"
-	input := &Input_Snapshot_Terminal{ContainerKey:container_key, Body:body, Title:title, Readme:readme, Tags:tags}
+	input := &Input_Snapshot_Terminal{ContainerKey:container_key, Body:body, Title:title, Readme:readme, Tags:tags, Public:public, KeepRam:keep_ram}
 	data, _ := json.Marshal(input)
 	output,  status_code := Make_Request(call, "POST", data)
 	success := false

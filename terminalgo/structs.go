@@ -430,6 +430,7 @@ type Input_Start_Snapshot struct {
 	Name	string	`json:"name"`
 	Autopause	bool `json:"autopause"`
 	StartupScript	string	`json:"startup_script"`
+	KeepRam bool `json:"keep_ram"`
 }
 
 type Input_Edit_Terminal struct {
@@ -469,6 +470,8 @@ type Input_Snapshot_Terminal struct {
 	Title string `json:"title"`
 	Readme string `json:"readme"`
 	Tags string `json:"tags"`
+	Public bool `json:"public"`
+	KeepRam bool `json:"keep_ram"`
 }
 
 type Input_Edit_TerminalAccess struct {

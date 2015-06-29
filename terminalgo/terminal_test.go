@@ -65,7 +65,7 @@ func Test_Public_Snapshots_Listing(t *testing.T) {
 
 func Test_General_Terminal_Handling(t *testing.T) {
 	utoken, atoken, err = Load_Credentials("creds.json")
-	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "")
+	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "", true)
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	fmt.Println("--- PASS: Start_Snapshot")
 	req_id := string(res.RequestID)
@@ -120,7 +120,7 @@ func Test_Count_Snapshots(t * testing.T){
 
 func Test_Snapshot_Handling(t * testing.T) {
 	utoken, atoken, err = Load_Credentials("creds.json")
-	res, success := Start_Snapshot(snapshot_id, "micro", true, test_name, true, "")
+	res, success := Start_Snapshot(snapshot_id, "micro", true, test_name, true, "", true)
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	req_id := res.RequestID
 	time.Sleep(2 * time.Second)
@@ -135,7 +135,7 @@ func Test_Snapshot_Handling(t * testing.T) {
 	time.Sleep(2 * time.Second)
 	prog, success_prog = Request_Progress(req_id)
 	ckey := prog.Result.ContainerKey
-	res_snap, success := Snapshot_Terminal(ckey,"body","golang_test_snap","readme","test",false )
+	res_snap, success := Snapshot_Terminal(ckey,"body","golang_test_snap","readme","test",false, true)
 	if success != true {t.Error("--- FAIL: Snapshot_Terminal ",res_snap)} else {fmt.Println("--- PASS: Snapshot_Terminal")}
 	time.Sleep(3 * time.Second)
 	req_id = res_snap.RequestID
@@ -161,7 +161,7 @@ func Test_Snapshot_Handling(t * testing.T) {
 
 func Test_Terminal_Access_and_Linking(t * testing.T) {
 	utoken, atoken, err = Load_Credentials("creds.json")
-	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "")
+	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "", true)
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	req_id := res.RequestID
 	time.Sleep(2 * time.Second)
@@ -193,7 +193,7 @@ func Test_Domain_Management(t * testing.T) {
 	if success != true {t.Error("--- FAIL: Get_Cname_Records", res_raw)} else {fmt.Println("--- PASS: Get_Cname_Records")}
 	res_raw, success = Add_Domain_To_Pool_Raw(testdomain)
 	if success != true {t.Error("--- FAIL:  Add_Domain_To_Pool_Raw", res_raw)} else {fmt.Println("--- PASS: Add_Domain_To_Pool_Raw")}
-	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "")
+	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "", true)
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	req_id := res.RequestID
 	time.Sleep(2 * time.Second)
@@ -221,7 +221,7 @@ func Test_Domain_Management(t * testing.T) {
 
 func Test_Terminal_Idle_Settings_Management(t * testing.T){
 	utoken, atoken, err = Load_Credentials("creds.json")
-	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "")
+	res, success := Start_Snapshot(snapshot_id, "micro", false, test_name, true, "", true)
 	if success != true {t.Error("Start_Snapshot failing, Aborting current test")}
 	req_id := res.RequestID
 	time.Sleep(2 * time.Second)
